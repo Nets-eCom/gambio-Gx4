@@ -1,0 +1,71 @@
+{block name="admin_configuration_box"}
+	<div class="gx-configuration-box gx-container">
+		<div class="configuration-box-content">
+			<form 
+				id="configuration-box-form" 
+				{if $content_data.useCheckboxWidget}data-gx-widget="checkbox" {/if}
+				action="{$content_data.formAction}" 
+				method="{$content_data.formMethod}" 
+				{$content_data.formAttributes}
+			>
+				<input type="hidden" value="{$content_data.pageToken}" name="page_token">
+
+				{if $smarty.get.module == 'nets'}
+
+					<link rel="stylesheet" href="{$baseUrl}/GXModules/Nets/Nets/Admin/Style/nets_config.css">
+					{block name="admin_configuration_box_header"}
+						<div class="configuration-box-header">
+							<h2>{$content_data.heading}</h2>	
+						</div>
+					{/block}
+					{block name="admin_configuration_box_body"}
+						<div class="configuration-box-body">
+							{block name="admin_configuration_box_body_description"}
+								<div class="configuration-box-description">
+									<p>{if !empty($content_data.description)}{$content_data.description}{/if}</p>
+								</div>
+							{/block}
+
+							{block name="admin_configuration_box_body_form"}
+								<div class="configuration-box-form-content{if $content_data.formIsEditable} editable{/if}">
+									{$content_data.form}
+								</div>
+							{/block}
+						</div>
+					{/block}
+
+				{else}
+
+					{block name="admin_configuration_box_header"}
+						<div class="configuration-box-header">
+							<h2>{$content_data.heading}</h2>
+						</div>
+					{/block}
+					{block name="admin_configuration_box_body"}
+						<div class="configuration-box-body">
+							{block name="admin_configuration_box_body_description"}
+								<div class="configuration-box-description">
+									<p>{if !empty($content_data.description)}{$content_data.description}{/if}</p>
+								</div>
+							{/block}
+							{block name="admin_configuration_box_body_form"}
+								<div class="configuration-box-form-content{if $content_data.formIsEditable} editable{/if}">
+									{$content_data.form}
+								</div>
+							{/block}
+						</div>
+					{/block}
+
+				{/if}
+
+				{block name="admin_configuration_footer"}
+					<div class="configuration-box-footer">
+						<div class="button-container bottom-save-bar-content">
+							{$content_data.buttons}
+						</div>
+					</div>
+				{/block}
+			</form>
+		</div>
+	</div>
+{/block}

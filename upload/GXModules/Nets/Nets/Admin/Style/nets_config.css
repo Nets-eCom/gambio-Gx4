@@ -1,0 +1,33 @@
+.tester { color: #08f; font-size: 14px; font-weight:600; }
+
+.nets-container { margin:0px 0px 30px 0px; padding:0px; background: #fff; border: 1px solid #005776; border-radius: 5px; }
+.nets-info { padding: 10px; }
+.nets-info p { margin: 0; color:#323232; font-size: 14px; letter-spacing: .02em; }
+.nets-info p.logo { width:100% }
+.nets-info img.nets-easy { width: inherit; }
+.nets-info .subtxt { display: block; padding: 0px 10px 30px 0px; width: 100%; color: #b5b5b5; font-size: 10px; text-transform: uppercase; text-align: right; font-style: italic; letter-spacing: .05em; }
+.nets-info p.info { font-size: 12px; text-align: left; }
+.nets-info .version { float: right; padding: 0px 10px 0px 0px; color: #06bdf0; font-size: 14px; font-weight: 600; }
+.nets-info a.nets-link { color: #005776; font-size: 14px; }
+.nets-info a.nets-link span { color: #ed8b00; }
+
+.gx-container table a.btn-config {
+ display: block;
+ margin:0px;
+ padding: 8px 15px;
+ width: 100%;
+ height: unset;
+ background: #005776;
+ color: #fff;
+ font-size: 14px;
+ text-transform: uppercase;
+ text-align: center;
+ letter-spacing: .02em;
+ border: 1px solid #005776;
+ border-radius: 0px 0px 5px 5px;
+}
+.gx-container table a:not(.btn):hover {
+ background: #036588 !important;
+ color: #fff !important;
+ text-decoration: none !important;
+}

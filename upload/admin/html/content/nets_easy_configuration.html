@@ -1,0 +1,351 @@
+{extends file="./layouts/main/layout.html"}
+
+{block name="content"}
+{load_language_text section="netseasypayment"}
+{assign var="orderStatuses" value=NetsEasyPayment::get_status('order_statuses')}
+
+
+<style>
+.aligned { display: flex; flex-flow: row wrap; }
+.aligned::before { display: block; }
+.filler { height: calc(100% - 262px); }
+.version { float: right; }
+.version b { color: #06bdf0; }
+.form-configuration .form-horizontal fieldset:not(:first-of-type) { margin-top: 30px; }
+.form-configuration .form-horizontal fieldset { margin-bottom: 15px; }
+.form-horizontal { margin-bottom: 30px; padding: 15px; background: #f6f7f8; border-radius: 7px; border: 1px solid #dadada; }
+.form-control { padding: 6px 12px; height: 32px; line-height: 1.5; border: 1px solid #9cb0bd; border-radius: 5px; -webkit-box-shadow: inset 0 0 5px 1px rgba(0, 0, 0, 0.10); box-shadow: inset 0 0 5px 1px rgba(0, 0, 0, 0.10); }
+.form-group label { color: #005776; }
+.form-configuration .form-horizontal fieldset .form-group { margin: 0; padding: 8px 5px; min-height: 30px; }
+.form-configuration .form-horizontal fieldset legend { margin-bottom: 10px; padding: 0 0 15px 0px; border-bottom: 2px solid #005776; color: #005776; font-size: 12px; text-transform: uppercase; letter-spacing: .02em; }
+.form-configuration .form-horizontal fieldset .form-group i { padding-left: 10px; }
+.form-configuration .form-horizontal fieldset .form-group input.form-control { max-width: unset; background: #eef6fb; color:#323232; letter-spacing: .02em; }
+.form-configuration .form-horizontal fieldset .form-group select.form-control { max-width: unset; background-color: #e0eff9; color:#323232; letter-spacing:.02em; cursor:pointer; }
+.form-configuration .form-horizontal fieldset .form-group select.form-control option { background-color: #fff; }
+.tooltip-icon.info i:first-child { margin-top: 5px; font-size: 21px; color: #06BDF0 !important; }
+.qtip.gx-qtip { line-height: 1.4; }
+.qtip.gx-qtip.info { background: #005776; letter-spacing: .02em; border-radius:7px; -webkit-box-shadow: 0px 1px 3px 2px rgba(0,0,0,0.12); box-shadow: 0px 1px 3px 2px rgba(0,0,0,0.12); }
+.qtip.gx-qtip .qtip-content p { margin: 0px; }
+.qtip.gx-qtip .qtip-content a { text-decoration: none; font-weight: 600; color: #ed8b00; }
+.switcher .switcher-state-on { background: #06BDF0; }
+.switcher .switcher-state-off { background: #005776; }
+.btn-nets { padding: 8px 15px; background: #ed8b00; color: #fff; font-size: 14px; text-transform: uppercase; letter-spacing: .02em; border: 1px solid #c27303; border-radius: 5px; }
+.btn-nets:focus, .btn-nets:active, .btn-nets:hover { background: #ff9a0a; color: #fff; border: 1px solid #c27303; }
+.nets-link { padding-top: 0; margin-bottom: 0; color: #13aed9; line-height: 2.6; letter-spacing: .02em; }
+.nets-link:focus, .nets-link:active, .nets-link:hover { color: #06bdf0; text-decoration:none; }
+.support { color: #13aed9; letter-spacing: .02em; }
+.support:focus, .support:active, .support:hover { color: #06bdf0; text-decoration:none; }
+.account { padding-top: 30px; font-size: 14px; letter-spacing: .02em; }
+@media only screen and (max-width: 1200px) {
+	.form-group label {	padding: 0px 0px 5px 15px !important; }
+	.support { line-height: 30px; }
+}
+</style>
+
+<form action="{$content.form_action}" method="POST" class="form-configuration">
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 hidden-md hidden-lg">
+			<div class="form-horizontal filler">
+				<fieldset>
+					<legend>{$txt.info}<span class="version">{$txt.version} <b>0.8.5 (RC)</b></span></legend>
+					<div class="form-group">
+						<label class="col-xs-12 col-sm-4 control-label" for="icon_bar"><i class="fa fa-credit-card" aria-hidden="true"></i> <b>{$txt.portal}</b></label>
+						<div class="col-xs-12 col-sm-8">
+							<a href="https://portal.dibspayment.eu/login" target="_blank" class="nets-link"><b>{$txt.easy_portal}</b></a>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-xs-12 col-sm-4 control-label" for="icon_bar"><i class="fa fa-link" aria-hidden="true"></i> <b>{$txt.website}</b></label>
+						<div class="col-xs-12 col-sm-8">
+							<a href="https://nets.eu/payments/online" target="_blank" class="nets-link"><b>https://nets.eu/payments/online</b></a>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-xs-12 col-sm-4 control-label" for="icon_bar"><i class="fa fa-life-ring" aria-hidden="true"></i> <b>{$txt.support}</b></label>
+						<div class="col-xs-6 col-sm-2 text-center">
+							<a href="mailto:ecom-de@nets.eu" class="support"><b>DE Support</b></a>
+						</div>
+						<div class="col-xs-6 col-sm-2 text-center">
+							<a href="mailto:ecom-dk@nets.eu" class="support"><b>DK Support</b></a>
+						</div>
+						<div class="col-xs-6 col-sm-2 text-center">
+							<a href="mailto:ecom-se@nets.eu" class="support"><b>SE Support</b></a>
+						</div>
+						<div class="col-xs-6 col-sm-2 text-center">
+							<a href="mailto:ecom-no@nets.eu" class="support"><b>NO Support</b></a>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-xs-12 col-sm-12 text-center">
+							<p class="account">
+								<b>
+									{$txt.account} 
+									<a href="https://portal.dibspayment.eu/registration?lang=en" target="_blank" class="nets-link">
+										{$txt.account_link}
+									</a>
+								</b>
+							</p>
+						</div>
+					</div>
+				</fieldset>
+			</div>
+		</div>
+
+		<div class="col-xs-12 col-sm-12 col-md-7 col-lg-7">
+			<input type="hidden" name="page_token" value="{$pageToken}">
+			<div class="form-horizontal">
+				<fieldset>
+					<legend>{$txt.credentials}</legend>
+					<div class="form-group">
+						<label class="col-xs-12 col-sm-12 col-md-12 col-lg-3 control-label" for="live_secret_key">{$txt.live_secret_key}</label>
+						<div class="col-sm-10 col-md-10 col-lg-7">
+							<input type="text" placeholder="{$txt.live_secret_placeholder}" id="live_secret_key" class="form-control" name="live_secret_key" value="{$content.live_secret_key}">
+						</div>
+						<div class="col-sm-2 col-md-2 col-lg-2 text-right">
+							<span data-gx-widget="tooltip_icon" data-tooltip_icon-type="info">
+								<p>{$txt.tooltip_apikeys} <a href="https://portal.dibspayment.eu/login" target="_blank">{$txt.tooltip_apikeys_url}</a></p>
+							</span>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-xs-12 col-sm-12 col-md-12 col-lg-3 control-label" for="live_checkout_key">{$txt.live_checkout_key}</label>
+						<div class="col-sm-12 col-md-12 col-md-7 col-lg-7">
+							<input type="text" placeholder="{$txt.live_checkout_placeholder}" id="live_checkout_key" class="form-control" name="live_checkout_key" value="{$content.live_checkout_key}">
+						</div>
+						<div class="hidden-xs hidden-sm col-md-4 col-lg-2">
+							&nbsp;
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-xs-12 col-sm-12 col-md-12 col-lg-3 control-label" for="test_secret_key">{$txt.test_secret_key}</label>
+						<div class="col-sm-12 col-md-12 col-lg-7">
+							<input type="text" placeholder="{$txt.test_secret_placeholder}" id="test_secret_key" class="form-control" name="test_secret_key" value="{$content.test_secret_key}">
+						</div>
+						<div class="hidden-xs hidden-sm col-md-4 col-lg-2">
+							&nbsp;
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-xs-12 col-sm-12 col-md-12 col-lg-3 control-label" for="test_checkout_key">{$txt.test_checkout_key}</label>
+						<div class="col-sm-12 col-md-12 col-lg-7">
+							<input type="text" placeholder="{$txt.test_checkout_placeholder}" id="test_checkout_key" class="form-control" name="test_checkout_key" value="{$content.test_checkout_key}">
+						</div>
+						<div class="hidden-xs hidden-sm col-md-4 col-lg-2">
+							&nbsp;
+						</div>
+					</div>
+				</fieldset>
+				<fieldset>
+					<legend>{$txt.settings}</legend>
+					<div class="form-group">
+						<label class="col-xs-12 col-sm-12 col-md-12 col-lg-3 control-label" for="checkout_mode">{$txt.checkout_mode}</label>
+						<div class="col-sm-10 col-md-10 col-lg-7">
+							<select class="form-control" id="checkout_mode" name="checkout_mode">
+								<option value="test" {if $content.checkout_mode === "test"}selected="selected"{/if}>
+									{$txt.mode_test}
+								</option>
+								<option value="live" {if $content.checkout_mode === "live"}selected="selected"{/if}>
+									{$txt.mode_live}
+								</option>
+							</select>
+						</div>
+						<div class="col-sm-2 col-md-2 col-lg-2">
+							<span data-gx-widget="tooltip_icon" data-tooltip_icon-type="info">
+								{$txt.tooltip_checkoutmode}
+							</span>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-xs-12 col-sm-12 col-md-12 col-lg-3 control-label" for="checkout_flow">{$txt.checkout_flow}</label>
+						<div class="col-sm-10 col-md-10 col-lg-7">
+							<select class="form-control" id="checkout_flow" name="checkout_flow">
+								<option value="redirect" {if $content.checkout_flow === "redirect"}selected="selected"{/if}>
+									{$txt.mode_redirect}
+								</option>
+								<option value="embedded" {if $content.checkout_flow === "embedded"}selected="selected"{/if}>
+									{$txt.mode_embedded}
+								</option>
+							</select>
+						</div>
+						<div class="col-sm-2 col-md-2 col-lg-2">
+							<span data-gx-widget="tooltip_icon" data-tooltip_icon-type="info">
+								{$txt.tooltip_checkoutflow}
+							</span>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-xs-12 col-sm-12 col-md-12 col-lg-3 control-label" for="terms_url">{$txt.terms_url}</label>
+						<div class="col-sm-10 col-md-10 col-lg-7">
+							<input type="text" placeholder="{$txt.terms_url_placeholder}" id="terms_url" class="form-control" name="terms_url" value="{$content.terms_url}">
+						</div>
+						<div class="col-sm-2 col-md-2 col-lg-2">
+							<span data-gx-widget="tooltip_icon" data-tooltip_icon-type="info">
+								{$txt.tooltip_termsurl}
+							</span>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-xs-12 col-sm-12 col-md-12 col-lg-3 control-label" for="merchant_url">{$txt.merchant_url}</label>
+						<div class="col-sm-10 col-md-10 col-lg-7">
+							<input type="text" placeholder="{$txt.merchant_url_placeholder}" id="merchant_url" class="form-control" name="merchant_url" value="{$content.merchant_url}">
+						</div>
+						<div class="col-sm-2 col-md-2 col-lg-2">
+							<span data-gx-widget="tooltip_icon" data-tooltip_icon-type="info">
+								{$txt.tooltip_merchanturl}
+							</span>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-xs-12 col-sm-12 col-lg-3 control-label" for="auto_capture">{$txt.auto_capture}</label>
+						<div class="col-sm-10 col-md-10 col-lg-7" data-gx-widget="switcher">
+							<input type="hidden" name="auto_capture" value="0" />
+							<input type="checkbox" id="auto_capture" value="1" name="auto_capture" class="form-control" {($content.auto_capture == true) ? 'checked="checked"' : ''} />
+						</div>
+						<div class="col-sm-2 col-md-2 col-lg-2">
+							<span data-gx-widget="tooltip_icon" data-tooltip_icon-type="info">
+								{$txt.tooltip_autocapture}
+							</span>
+						</div>
+					</div>
+				</fieldset>
+			</div>
+		</div>
+
+		<div class="hidden-xs hidden-sm col-md-5 col-lg-5">
+			<div class="form-horizontal filler">
+				<fieldset>
+					<legend>{$txt.info}<span class="version">{$txt.version} <b>0.8.5 (RC)</b></span></legend>
+					<div class="form-group">
+						<label class="col-md-12 col-lg-4 control-label" for="icon_bar"><i class="fa fa-credit-card" aria-hidden="true"></i> <b>{$txt.portal}</b></label>
+						<div class="col-md-12 col-lg-8">
+							<a href="https://portal.dibspayment.eu/login" target="_blank" class="nets-link"><b>{$txt.easy_portal}</b></a>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-12 col-lg-4 control-label" for="icon_bar"><i class="fa fa-link" aria-hidden="true"></i> <b>{$txt.website}</b></label>
+						<div class="col-md-12 col-lg-8">
+							<a href="https://nets.eu/payments/online" target="_blank" class="nets-link"><b>https://nets.eu/payments/online</b></a>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-12 col-lg-4 control-label" for="icon_bar"><i class="fa fa-life-ring" aria-hidden="true"></i> <b>{$txt.support}</b></label>
+						<div class="col-md-6 col-lg-2 text-center">
+							<a href="mailto:ecom-de@nets.eu" class="support"><b>DE Support</b></a>
+						</div>
+						<div class="col-md-6 col-lg-2 text-center">
+							<a href="mailto:ecom-dk@nets.eu" class="support"><b>DK Support</b></a>
+						</div>
+						<div class="col-md-6 col-lg-2 text-center">
+							<a href="mailto:ecom-se@nets.eu" class="support"><b>SE Support</b></a>
+						</div>
+						<div class="col-md-6 col-lg-2 text-center">
+							<a href="mailto:ecom-no@nets.eu" class="support"><b>NO Support</b></a>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-md-12 col-lg-12 text-center">
+							<p class="account">
+								<b>
+									{$txt.account} 
+									<a href="https://portal.dibspayment.eu/registration?lang=en" target="_blank" class="nets-link">
+										{$txt.account_link}
+									</a>
+								</b>
+							</p>
+						</div>
+					</div>
+				</fieldset>
+			</div>
+			<div class="form-horizontal">
+				<fieldset>
+					<legend>{$txt.misc}</legend>
+					<div class="form-group">
+						<label class="col-md-12 col-lg-3 control-label" for="icon_bar">{$txt.icon_bar}</label>
+						<div class="col-md-10 col-lg-7">
+							<input type="text" placeholder="{$txt.icon_bar_placeholder}" id="icon_bar" class="form-control" name="icon_bar" value="{$content.icon_bar}">
+						</div>
+						<div class="col-md-2 col-lg-2">
+							<span data-gx-widget="tooltip_icon" data-tooltip_icon-type="info">
+								<p>{$txt.tooltip_iconbar} <a href="http://easymoduler.dk/icon" target="_blank">{$txt.tooltip_iconbar_link}</a></p>
+							</span>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="debug_mode" class="col-md-12 col-lg-3 control-label">{$txt.debug_mode}</label>
+						<div class="col-md-5 col-lg-3 text-center" data-gx-widget="switcher">
+							<input type="hidden" name="debug_back" value="0" />
+							<input type="checkbox" id="debug_back" value="1" name="debug_back" class="form-control" {($content.debug_back == true) ? 'checked="checked"' : ''} />
+							<div class="input-group-append">
+								<span class="input-group-text">{$txt.mode_backend}</span>
+							</div>
+						</div>
+						<div class="col-md-5 col-lg-4 text-center" data-gx-widget="switcher">
+							<input type="hidden" name="debug_front" value="0" />
+							<input type="checkbox" id="debug_front" value="1" name="debug_front" class="form-control" {($content.debug_front == true) ? 'checked="checked"' : ''} />
+							<div class="input-group-append">
+								<span class="input-group-text">{$txt.mode_frontend}</span>
+							</div>
+						</div>
+						<div class="col-md-2 col-lg-2">
+							<span data-gx-widget="tooltip_icon" data-tooltip_icon-type="info">
+								{$txt.tooltip_debug}
+							</span>
+						</div>
+					</div>	
+				</fieldset>
+			</div>
+		</div>
+
+		<div class="col-xs-12 col-sm-12 hidden-md hidden-lg">
+			<div class="form-horizontal">
+				<fieldset>
+					<legend>{$txt.misc}</legend>
+					<div class="form-group">
+						<label class="col-sm-12 control-label" for="icon_bar">{$txt.icon_bar}</label>
+						<div class="col-sm-10">
+							<input type="text" placeholder="{$txt.icon_bar_placeholder}" id="icon_bar" class="form-control" name="icon_bar" value="{$content.icon_bar}">
+						</div>
+						<div class="col-sm-2">
+							<span data-gx-widget="tooltip_icon" data-tooltip_icon-type="info">
+								<p>{$txt.tooltip_iconbar} <a href="http://easymoduler.dk/icon" target="_blank">{$txt.tooltip_iconbar_link}</a></p>
+							</span>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="debug_mode" class="col-sm-12 control-label">{$txt.debug_mode}</label>
+						<div class="col-sm-5 text-center" data-gx-widget="switcher">
+							<input type="hidden" name="debug_back" value="0" />
+							<input type="checkbox" id="debug_back" value="1" name="debug_back" class="form-control" {($content.debug_back == true) ? 'checked="checked"' : ''} />
+							<div class="input-group-append">
+								<span class="input-group-text">{$txt.mode_backend}</span>
+							</div>
+						</div>
+						<div class="col-sm-5 text-center" data-gx-widget="switcher">
+							<input type="hidden" name="debug_front" value="0" />
+							<input type="checkbox" id="debug_front" value="1" name="debug_front" class="form-control" {($content.debug_front == true) ? 'checked="checked"' : ''} />
+							<div class="input-group-append">
+								<span class="input-group-text">{$txt.mode_frontend}</span>
+							</div>
+						</div>
+						<div class="col-sm-2">
+							<span data-gx-widget="tooltip_icon" data-tooltip_icon-type="info">
+								{$txt.tooltip_debug}
+							</span>
+						</div>
+					</div>	
+				</fieldset>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-lg-12">
+			<div class="form-horizontal text-right">
+				<button type="submit" class="btn btn-nets">{$txt.config_save}</button>
+			</div>
+		</div>
+	</div>
+</div>
+</form>
+{/block}

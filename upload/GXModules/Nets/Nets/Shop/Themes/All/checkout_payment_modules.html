@@ -1,0 +1,161 @@
+{block name="checkout_payment_modules_list"}
+
+	<ul class="list-group" data-gambio-widget="radio_selection" data-radio_selection-init="true">
+		{foreach name=aussen item=module_data from=$module_content}
+			{block name="checkout_payment_modules_item"}
+
+				{if $module_data.id == 'nets'}
+					{assign var="iconBar" value={gm_get_conf('NETS_ICON_BAR')}}
+
+					<li class="list-group-item {$module_data.id} {if $module_content|count <= 1}active{/if}">
+						<div class="row">
+							<div 
+								class="col-xs-12 title radio  payment_item button_checkout_module 
+								{if $module_data.fields != '' && $module_data.fields[0].title != '' && $module_data.fields|@count > 0}has-form{/if}"
+							>
+								{block name="checkout_payment_modules_item_label"}
+									<label class="payment-module-container">
+										{block name="checkout_payment_modules_item_data_selection"}
+											<span class="payment-module-selection">
+												{$module_data.selection}
+											</span>
+										{/block}
+										{block name="checkout_payment_modules_item_data_info"}
+											<span class="col-xs-12 col-sm-7 payment-module-info">
+												{block name="checkout_payment_modules_item_data_title"}
+													<span class="hidden-xs col-sm-5 payment-module-icon nets">
+														<img src="{$module_data.logo_url}" alt="{$module_data.logo_alt|strip_tags}" class="img-responsive nets">
+													</span>
+													<span class="payment-module-title">
+														{$module_data.module}
+													</span>
+												{/block}
+												{block name="checkout_payment_modules_item_data_costs"}
+													{if $module_data.module_cost}
+														<span class="payment-module-cost">
+															({$module_data.module_cost})
+														</span>
+													{/if}
+												{/block}
+												{block name="checkout_payment_modules_item_data_description"}
+													{if $module_data.description}
+														<span class="payment-module-description nets"> - {$module_data.description}</span>
+													{/if}
+												{/block}
+												{if $module_data.fields != '' && $module_data.fields[0].title != '' && $module_data.fields|@count > 0}
+													{block name="checkout_payment_modules_item_data_fields"}
+														<div class="checkout-payment-form">
+															<div class="well">
+																{foreach name=aussen item=method_data from=$module_data.fields}
+																	{block name="checkout_payment_modules_item_data_field"}
+																		<div class="form-group">
+																			{if $method_data.title && $method_data.title != ''}
+																				{block name="checkout_payment_modules_item_data_field_title"}
+																					<label class="control-label col-xs-12 col-md-4">{$method_data.title}</label>
+																				{/block}
+																			{/if}
+																			{block name="checkout_payment_modules_item_data_field_label"}
+																				{assign var="label" value=$method_data.title|replace:":":""}
+																				<div class="col-xs-12 col-md-8">
+																					{$method_data.field|replace:"class=\"gm_class_input\"":"class=\"form-control input-sm\" placeholder=\"$label\""|replace:"style=\"width:200px\"":""}
+																				</div>
+																			{/block}
+																		</div>
+																	{/block}
+																{/foreach}
+															</div>
+														</div>
+													{/block}
+												{/if}
+											</span>
+										{/block}
+										{block name="checkout_payment_modules_item_icon"}
+											<span class="hidden-xs col-sm-5 payment-module-icon icon_placeholder">
+												<object type="image/svg+xml" data="{$iconBar}"></object>
+											</span>
+										{/block}
+									</label>
+								{/block}
+							</div>
+						</div>
+					</li>
+
+				{else}
+
+					<li class="list-group-item {$module_data.id} {if $module_content|count <= 1}active{/if}">
+						<div class="row">
+							<div 
+								class="col-xs-12 title radio  payment_item button_checkout_module 
+								{if $module_data.fields != '' && $module_data.fields[0].title != '' && $module_data.fields|@count > 0}has-form{/if}"
+							>
+								{block name="checkout_payment_modules_item_label"}
+									<label class="payment-module-container">
+										{block name="checkout_payment_modules_item_data_selection"}
+											<span class="payment-module-selection">
+												{$module_data.selection}
+											</span>
+										{/block}
+										{block name="checkout_payment_modules_item_data_info"}
+											<span class="col-xs-12 col-sm-7 payment-module-info">
+												{block name="checkout_payment_modules_item_data_title"}
+													<span class="payment-module-title">
+														{$module_data.module}
+													</span>
+												{/block}
+												{block name="checkout_payment_modules_item_data_costs"}
+													{if $module_data.module_cost}
+														<span class="payment-module-cost">
+															({$module_data.module_cost})
+														</span>
+													{/if}
+												{/block}
+												{block name="checkout_payment_modules_item_data_description"}
+													{if $module_data.description}
+														<span class="payment-module-description">{$module_data.description}</span>
+													{/if}
+												{/block}
+												{if $module_data.fields != '' && $module_data.fields[0].title != '' && $module_data.fields|@count > 0}
+													{block name="checkout_payment_modules_item_data_fields"}
+														<div class="checkout-payment-form">
+															<div class="well">
+																{foreach name=aussen item=method_data from=$module_data.fields}
+																	{block name="checkout_payment_modules_item_data_field"}
+																		<div class="form-group">
+																			{if $method_data.title && $method_data.title != ''}
+																				{block name="checkout_payment_modules_item_data_field_title"}
+																					<label class="control-label col-xs-12 col-md-4">{$method_data.title}</label>
+																				{/block}
+																			{/if}
+																			{block name="checkout_payment_modules_item_data_field_label"}
+																				{assign var="label" value=$method_data.title|replace:":":""}
+																				<div class="col-xs-12 col-md-8">
+																					{$method_data.field|replace:"class=\"gm_class_input\"":"class=\"form-control input-sm\" placeholder=\"$label\""|replace:"style=\"width:200px\"":""}
+																				</div>
+																			{/block}
+																		</div>
+																	{/block}
+																{/foreach}
+															</div>
+														</div>
+													{/block}
+												{/if}
+											</span>
+										{/block}
+										{block name="checkout_payment_modules_item_icon"}
+											<span class="hidden-xs col-sm-5 payment-module-icon">
+												<img src="{$module_data.logo_url}" alt="{$module_data.logo_alt|strip_tags}" class="img-responsive">
+											</span>
+										{/block}
+									</label>
+								{/block}
+							</div>
+						</div>
+					</li>
+
+				{/if}
+
+			{/block}
+		{/foreach}
+	</ul>
+
+{/block}
