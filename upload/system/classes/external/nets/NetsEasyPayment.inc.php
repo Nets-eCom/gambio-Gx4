@@ -27,22 +27,22 @@ class NetsEasyPayment
 
 	protected function _load_configuration()
 	{
+		$baseUrl = ENABLE_SSL_CATALOG ? HTTP_CATALOG_SERVER : HTTPS_CATALOG_SERVER;
 		$t_cfg = array(
-			'live_secret_key' => '',
-			'live_checkout_key' => '',
-			'test_secret_key' => '',
-			'test_checkout_key' => '',
-			'checkout_mode' => 'test', // test|live
-			'checkout_flow' => 'redirect', // redirect|embedded
-			'terms_url' => '',
-			'merchant_url' => '',
-			'auto_capture' => '0',
-			'nets_enabled' => '1',
-			'sort_order' => '0',
-			'order_status' => '1', // order status id
-			'icon_bar' => 'http://easymoduler.dk/icon/img?set=2&icons=VISA_MC_MTRO_PP_RP',
-			'debug_back' => '0',
-			'debug_front' => '0'
+			'live_secret_key' 		=> '', 
+			'live_checkout_key' 	=> '', 
+			'test_secret_key' 		=> '', 
+			'test_checkout_key' 	=> '', 
+			'checkout_mode' 		=> 'test', // test|live
+			'checkout_flow' 		=> 'redirect', // redirect|embedded
+			'terms_url' 			=> $baseUrl.'/shop_content.php?coID=3', 
+			'merchant_url' 			=> $baseUrl.'/shop_content.php?coID=4', 
+			'auto_capture' 			=> '0', 
+			'icon_bar' 				=> 'http://easymoduler.dk/icon/img?set=2&icons=VISA_MC_MTRO_PP_RP', 
+			'wb_url' 				=> $baseUrl.'/shop.php?do=NetsEasyWebhook', 
+			'wb_auth' 				=> '0', 
+			'db_back' 				=> '0', 
+			'db_front' 				=> '0'
 		);
 
 		foreach($t_cfg as $cfg_key => $cfg_value)
@@ -142,11 +142,17 @@ class NetsEasyPayment
 	}
 
 
-	public function is_enabled()
+	public function is_enabled($t_is_enabled)
 	{
 		$t_is_enabled = (defined('MODULE_PAYMENT_NETS_STATUS') && filter_var(constant('MODULE_PAYMENT_NETS_STATUS'), FILTER_VALIDATE_BOOLEAN) === true);
 		$t_is_enabled = $t_is_enabled && strpos(MODULE_PAYMENT_STATUS, 'nets.php') !== false;
 		return $t_is_enabled;
+	}
+
+	public function is_installed($installed)
+	{
+		$installed = defined('MODULE_PAYMENT_NETS_STATUS');
+		return $installed;
 	}
 }
 

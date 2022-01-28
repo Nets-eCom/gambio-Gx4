@@ -1,11 +1,11 @@
-{assign var="debugMode" value={gm_get_conf('NETS_DEBUG_MODE')}}
+{assign var="debugMode" value={gm_get_conf('NETS_DB_BACK')}}
 {load_language_text section="nets_order"}
 
 <link rel="stylesheet" href="{$baseUrl}/GXModules/Nets/Nets/Admin/Style/nets_order.css">
 
 <div class="nets-container">
 
-	{if $debugMode == 'backend'}
+	{if $debugMode}
 		<div class="row" style="padding-bottom:0px;">
 			<div class="span12">
 				<pre>{$responseItems|print_r}</pre>

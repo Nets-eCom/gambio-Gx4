@@ -31,22 +31,21 @@ class NetsEasyConfigurationController extends AdminHttpViewController
 		$netsEasy = MainFactory::create_object('NetsEasyPayment');
 
 		$data = MainFactory::create('KeyValueCollection', [
-			'form_action' 			=> xtc_href_link('admin.php', 'do=NetsEasyConfiguration/SaveConfiguration'),
-			'live_secret_key' 		=> $netsEasy->live_secret_key,
-			'live_checkout_key'		=> $netsEasy->live_checkout_key,
-			'test_secret_key' 		=> $netsEasy->test_secret_key,
-			'test_checkout_key' 	=> $netsEasy->test_checkout_key,
-			'checkout_mode' 		=> $netsEasy->checkout_mode,
-			'checkout_flow' 		=> $netsEasy->checkout_flow,
-			'terms_url' 			=> $netsEasy->terms_url,
-			'merchant_url' 			=> $netsEasy->merchant_url,
-			'auto_capture' 			=> $netsEasy->auto_capture,
-			'nets_enabled' 			=> $netsEasy->nets_enabled,
-			'sort_order' 			=> $netsEasy->sort_order,
-			'order_status' 			=> $netsEasy->order_status,
-			'icon_bar' 				=> $netsEasy->icon_bar,
-			'debug_back' 			=> $netsEasy->debug_back,
-			'debug_front' 			=> $netsEasy->debug_front
+			'form_action' 			=> xtc_href_link('admin.php', 'do=NetsEasyConfiguration/SaveConfiguration'), 
+			'live_secret_key' 		=> $netsEasy->live_secret_key, 
+			'live_checkout_key'		=> $netsEasy->live_checkout_key, 
+			'test_secret_key' 		=> $netsEasy->test_secret_key, 
+			'test_checkout_key' 	=> $netsEasy->test_checkout_key, 
+			'checkout_mode' 		=> $netsEasy->checkout_mode, 
+			'checkout_flow' 		=> $netsEasy->checkout_flow, 
+			'terms_url' 			=> $netsEasy->terms_url, 
+			'merchant_url' 			=> $netsEasy->merchant_url, 
+			'auto_capture' 			=> $netsEasy->auto_capture, 
+			'icon_bar' 				=> $netsEasy->icon_bar, 
+			'wb_url' 				=> $netsEasy->wb_url, 
+			'wb_auth' 				=> $netsEasy->wb_auth, 
+			'db_back' 				=> $netsEasy->db_back, 
+			'db_front' 				=> $netsEasy->db_front
 		]);
         $assets = MainFactory::create('AssetCollection', [MainFactory::create('Asset', 'netseasypayment.lang.inc.php'),]);
         return MainFactory::create('AdminLayoutHttpControllerResponse', $title, $template, $data, $assets);
@@ -68,13 +67,11 @@ class NetsEasyConfigurationController extends AdminHttpViewController
 		$merchantUrl 		= $this->_getPostData('merchant_url');
 		$autoCapture 		= (bool)$this->_getPostData('auto_capture') ? '1' : '0';
 
-		$netsEnabled 		= (bool)$this->_getPostData('nets_enabled') ? '1' : '0';
-		$sortOrder 			= $this->_getPostData('sort_order');
-		$orderStatus 		= $this->_getPostData('order_status');
-
 		$iconBar 			= $this->_getPostData('icon_bar');
-		$debugBack 			= (bool)$this->_getPostData('debug_back') ? '1' : '0';
-		$debugFront 		= (bool)$this->_getPostData('debug_front') ? '1' : '0';
+		$wbUrl  			= $this->_getPostData('wb_url');
+		$wbAuth 			= $this->_getPostData('wb_auth');
+		$dbBack 			= (bool)$this->_getPostData('db_back') ? '1' : '0';
+		$dbFront 			= (bool)$this->_getPostData('db_front') ? '1' : '0';
 
 		$liveSecretKey 		= strip_tags($liveSecretKey);
 		$liveCheckoutKey 	= strip_tags($liveCheckoutKey);
@@ -84,6 +81,7 @@ class NetsEasyConfigurationController extends AdminHttpViewController
 		$merchantUrl 		= strip_tags($merchantUrl);
 		$sortOrder 			= strip_tags($sortOrder);
 		$iconBar 			= strip_tags($iconBar);
+		$wbAuth 			= strip_tags($wbAuth);
 
 
         $netsEasy->live_secret_key 		= $liveSecretKey;
@@ -95,12 +93,11 @@ class NetsEasyConfigurationController extends AdminHttpViewController
         $netsEasy->terms_url 			= $termsUrl;
         $netsEasy->merchant_url 		= $merchantUrl;
         $netsEasy->auto_capture 		= $autoCapture;
-        $netsEasy->nets_enabled 		= $netsEnabled;
-        $netsEasy->sort_order 			= $sortOrder;
-        $netsEasy->order_status 		= $orderStatus;
         $netsEasy->icon_bar 			= $iconBar;
-        $netsEasy->debug_back 			= $debugBack;
-        $netsEasy->debug_front 			= $debugFront;		
+        $netsEasy->wb_url 				= $wbUrl;
+        $netsEasy->wb_auth 				= $wbAuth;
+        $netsEasy->db_back 				= $dbBack;
+        $netsEasy->db_front 			= $dbFront;		
 
 		$GLOBALS['messageStack']->add_session($this->text->get_text('configuration_saved'), 'success');
 

@@ -3,7 +3,7 @@
 {if $payMethod == 'nets'}
 
 	{assign var="integrationType" value={gm_get_conf('NETS_CHECKOUT_FLOW')}}
-	{assign var="debugMode" value={gm_get_conf('NETS_DEBUG_MODE')}}
+	{assign var="debugMode" value={gm_get_conf('NETS_DB_FRONT')}}
 
 	{load_language_text section="checkout_confirmation"}
 	{load_language_text section="buttons" name="button"}
@@ -63,7 +63,7 @@
 						</div>
 						{if $debugMode}
 							<div class="col-md-12">
-							<pre>{*$smarty.session|print_r*}</pre>
+								<pre class="nets">{$smarty.session.nets.datastring|print_r}</pre>
 							</div>
 						{/if}
 						<div class="col-md-12">

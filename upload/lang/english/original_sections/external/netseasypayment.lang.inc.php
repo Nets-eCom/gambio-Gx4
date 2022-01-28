@@ -33,6 +33,10 @@ $t_language_text_section_content_array = [
     'merchant_url_placeholder' 				=> 'Insert your Merchant Terms URL here',
     'auto_capture' 							=> 'Auto Capture',
     'misc' 									=> 'Misc.',
+    'wb_url' 								=> 'Webhook URL',
+    'wb_url_placeholder' 					=> 'https://example.com/shop.php?do=NetsEasyWebhook',
+    'wb_auth' 								=> 'Webhook Auth',
+    'wb_auth_placeholder' 					=> 'AZ-1234567890-az',
     'icon_bar' 								=> 'Icon Bar',
     'icon_bar_placeholder' 					=> 'Insert your Icon Bar URL here',
     'debug_mode' 							=> 'Debug Mode',
@@ -57,7 +61,12 @@ $t_language_text_section_content_array = [
 	'tooltip_termsurl' 						=> 'Please insert the full url to your terms and conditions page',
 	'tooltip_merchanturl' 					=> 'Please insert the full url to your Privacy Policy page',
 	'tooltip_autocapture' 					=> 'Auto capture allows you to instant charge your orders upon succesful payment reservation',
+	'tooltip_wb_url' 						=> 'Webhook URL is set to Nets custom endpoint. Live mode (Production) requires your site to run on SSL.',
+	'tooltip_wb_auth' 						=> 'Set your Webhook Authorization Key here. Key must be between 8-64 characters. Key can only consist of [A-Z]-[a-z]-[0-9]. Set value to 0 (zero) to turn OFF webhook functionality.',
 	'tooltip_iconbar' 						=> 'This link loads in a set of payment icons displayed on Nets Easy payment method during checkout. You can generate a custom set',
 	'tooltip_iconbar_link'					=> 'here',
-	'tooltip_debug' 						=> 'When activating Debug mode, Hidden Data will be displayed. This can be emailed to our support to quickly find root cause in case of transaction fails'
+	'tooltip_debug' 						=> 'When activating Debug mode, Hidden Data will be displayed. This can be emailed to our support to quickly find root cause in case of transaction fails',
+
+    'not_installed' 						=> 'Please install our plugin before you can configure the plugin settings',
+    'install_link' 							=> 'Install plugin',
 ];

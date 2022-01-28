@@ -44,7 +44,7 @@ class nets_ORIGIN {
         $this->title = defined('MODULE_PAYMENT_NETS_TEXT_TITLE') ? MODULE_PAYMENT_NETS_TEXT_TITLE : '';
         $this->description = '';
         if (defined('MODULE_PAYMENT_NETS_TEXT_DESCRIPTION') && defined('DIR_WS_ADMIN')) {
-            $version = '0.8.5';
+            $version = '1.0.0';
             $this->description = '
 				<div class="nets-container">
 					<div class="nets-info">
@@ -441,7 +441,34 @@ class nets_ORIGIN {
             ),
 			
         );
-		
+		//Webhooks 
+        if ($this->config['NETS_WB_AUTH'] !='0') {
+			$webHookUrl = $this->config['NETS_WB_URL'];
+			$data['notifications'] = array(
+				'webhooks' =>array(
+									array(
+										'eventName' => 'payment.checkout.completed',
+										'url' => $webHookUrl,
+										'authorization' => $this->config['NETS_WB_AUTH']
+									),
+									array(
+										'eventName' => 'payment.charge.created',
+										'url' => $webHookUrl,
+										'authorization' => $this->config['NETS_WB_AUTH']
+									),
+									array(
+										'eventName' => 'payment.refund.completed',
+										'url' => $webHookUrl,
+										'authorization' => $this->config['NETS_WB_AUTH']
+									),
+									array(
+										'eventName' => 'payment.cancel.created',
+										'url' => $webHookUrl,
+										'authorization' => $this->config['NETS_WB_AUTH']
+									)
+							)
+			);
+        }
         // checkout type switch		
         if ($this->config['NETS_CHECKOUT_FLOW'] === 'redirect') {
             $data['checkout']['integrationType'] = 'HostedPaymentPage';

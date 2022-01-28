@@ -13,5 +13,5 @@
 ## CHANGELOG
 
 
-### Version 1.0.0 - Released 2022-01-10
-* New : Nets Easy plugin release with hosted and embeded payment page support.
+### Version 1.0.0 - Released 2022-01-28
+* New : Nets Easy plugin release with hosted and embedded payment page support.

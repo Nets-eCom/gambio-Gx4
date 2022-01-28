@@ -7,3 +7,10 @@ div.dibs-checkout-wrapper iframe, div.nets-checkout-wrapper iframe { min-height:
 .img-responsive.nets{ height: 20px !important; background-color: transparent !important; }
 .icon_placeholder object { display: table-cell; float: none; padding-right: 5px; text-align: right; max-height: 32px; max-width: 225px; }
 .payment-module-description.nets  { display: inline-block !important; }
+
+pre.nets {
+  overflow: auto;
+  padding: 15px;
+  background: #455468;
+  color: #fff;
+}
